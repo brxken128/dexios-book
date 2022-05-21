@@ -1,0 +1,23 @@
+## Handling Keys
+
+All keys are wrapped in a `Secret<>`, provided by the [secrecy crate](https://docs.rs/secrecy/latest/secrecy/). This ensures that data does not leak, is not copied and is zeroed on drop. It only stays in memory for as long as it needs to.
+
+Once obtained, passwords are then safely transported to the `argon2id` function. See [Password Hashing](#password-hashing) for more information.
+
+### Reading from the Terminal
+
+While reading from the terminal, the passwords are stored as `String`s.
+
+On encryption, where you need to enter the password twice, they are compared. The `String` used for validation is safely zeroed out, and the original is consumed into a `Vec<u8>`.
+
+On decryption, the password is only entered once, and it is consumed into a `Vec<u8>`.
+
+The `Vec<u8>` containing the key is wrapped into a `Secret<Vec>`, which takes ownership of the value.
+
+### Reading from a Keyfile
+
+The keyfile is opened, and it's contents are read into a `Vec<u8>`. The `Vec<u8>` is then wrapped into a `Secret<Vec>`, which takes ownership of the value.
+
+### Reading from Environment Variables
+
+The `DEXIOS_KEY` environment variable is checked (to see if it exists) - if so, the contents are read into a `String`. It is then consumed into a `Vec<u8>`, which finally gets wrapped into a `Secret<Vec>`. This may seem cumbersome, but there are no copies or clones of the data, meaning it is safe.
