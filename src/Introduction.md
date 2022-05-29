@@ -24,14 +24,14 @@ All other cryptographic functions are deemed secure - but they don't protect you
 
 ## Tested Operating Systems
 
-| OS | Working |
+| OS | Working? |
 |----|----------|
-Void Linux | :white_check_mark: |
-Fedora 35 | :white_check_mark: |
-Fedora 36 | :white_check_mark: |
-Ubuntu 20.04 | :white_check_mark: |
-FreeBSD 13 | :white_check_mark: |
-FreeBSD 14 | :white_check_mark: |
+Void Linux | Yes |
+Fedora 35 | Yes |
+Fedora 36 | Yes |
+Ubuntu 20.04 | Yes |
+FreeBSD 13 | Yes |
+FreeBSD 14 | Yes |
 
 ## Thank you!
 
