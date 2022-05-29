@@ -15,3 +15,4 @@
   - [Secret Wrapper](technical-details/Secret-Wrapper.md)
   - [Directory Packing](technical-details/Directory-Packing.md)
   - [Performance Notes](technical-details/Performance-Notes.md)
+- [Security Policy](Security-Policy.md)

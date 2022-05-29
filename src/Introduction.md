@@ -33,6 +33,16 @@ Ubuntu 20.04 | Yes |
 FreeBSD 13 | Yes |
 FreeBSD 14 | Yes |
 
+### Donating
+
+If you like my work, and want to help support the project, feel free to donate! This is not necessary by any means, so please don't feel obliged to do so.
+
+```
+XMR: 84zSGS18aHtT3CZjZUnnWpCsz1wmA5f65G6BXisbrvAiH7PxZpP8GorbdjAQYRtfeiANZywwUPjZcHu8eXJeWdafJQFK46G
+BTC: bc1q8x0r7khrfj40qd0zr5xv3t9nl92rz2387pu48u
+ETH: 0x9630f95F11dFa8703b71DbF746E5c83A31A3F2DD
+```
+
 ## Thank you!
 
 I'd like to give a huge "thank you" to the entire [RustCrypto Team](https://github.com/RustCrypto) for their hard work within the Rust cryptography community. This program would not be possible without their countless hours of work and dedication.
