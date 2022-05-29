@@ -18,7 +18,7 @@ The [ChaCha20-Poly1305 crate](https://github.com/RustCrypto/AEADs/tree/master/ch
 
 The `deoxys` crate does not have a formal audit, and it is still rather experimental. Due to how new Deoxys is, relatively speaking, it's extremely hard to find a good implementation. We opted to use one created by the same [RustCrypto Team](https://github.com/RustCrypto) that almost all of our other cryptographic dependencies rely on. You **will** experience decreased encryption and decryption performance while using Deoxys.
 
-`argon2` is regarded as the most secure password hashing algorithm at the time being, due to how resistant it is to cracking - that's why we use it! It's especially ideal while dealing with low-entropy inputs, such as human-selected passwords.
+`argon2` is regarded as the most secure password hashing algorithm at the time being, due to how resistant it is to cracking - that's why we use it! It's especially ideal while dealing with low-entropy inputs, such as passwords.
 
 All other cryptographic functions are deemed secure - but they don't protect your data, so any vulnerabilities in them would not have a detrimental effect on the security and integrity of said data.
 
@@ -33,7 +33,7 @@ Ubuntu 20.04 | Yes |
 FreeBSD 13 | Yes |
 FreeBSD 14 | Yes |
 
-### Donating
+## Donating
 
 If you like my work, and want to help support the project, feel free to donate! This is not necessary by any means, so please don't feel obliged to do so.
 
@@ -42,6 +42,14 @@ XMR: 84zSGS18aHtT3CZjZUnnWpCsz1wmA5f65G6BXisbrvAiH7PxZpP8GorbdjAQYRtfeiANZywwUPj
 BTC: bc1q8x0r7khrfj40qd0zr5xv3t9nl92rz2387pu48u
 ETH: 0x9630f95F11dFa8703b71DbF746E5c83A31A3F2DD
 ```
+
+## Privacy
+
+Dexios will **never** collect your data. No data is sent to any server, nor are any requests.
+
+Everything is done locally on your hardware and your machine.
+
+I encourage all able users to take a peek at [the source code](https://github.com/brxken128/dexios) and see for themselves.
 
 ## Thank you!
 

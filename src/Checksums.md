@@ -4,23 +4,13 @@ Hashing mode uses `BLAKE3` for verification, due to it's speed, security and reg
 
 We hash the **encrypted** file (after encryption and before/during decryption). This is to ensure that your file wasn't tampered with between encrypting it and decrypting it. If the hash isn't the same then something *very* bad has happened.
 
-This was originally `sha3-512` in versions 3.x.x and below, and was `KangarooTwelve` in 4.x.x (via the `tiny_keccak` crate) but since v5 it has been changed to BLAKE3 for a number of reasons.
-
-The `tiny_keccak` crate hasn't received updates in a long while, and is no longer actively maintained.
-
-The `k12` crate is ideal for this situation - but it is rather immature compared to some other hashing implementations, so `BLAKE3` will be our main hashing algorithm, and there are no plans to change this as of yet.
-
-`BLAKE3` also offered some *marginal* performance benefits, but this could be due to a number of factors.
+This was originally `sha3-512` in versions 3.x.x and below, and was `KangarooTwelve` in 4.x.x (via the `tiny_keccak` crate) but since v5 it has been changed to `BLAKE3` for a number of reasons. We have no plans to change `BLAKE3` at this moment in time - it's fast, secure, and does the job very well.
 
 ## Standalone Hashing Mode
 
 You can use this by running `dexios hash test.enc`. It can also be ran on any file you'd like - encrypted or not.
 
-It can use memory or stream mode, and implements the same checking that `encrypt.rs` and `decrypt.rs` implement to automatically detect whether or not the file should be hashed in memory or stream mode.
-
-There are optional `-s` and `-m` switches, but `-s` will redirect you to memory mode if your file isn't large enough. There is no way around this that doesn't involve changing the stream `BLOCK_SIZE` in `global.rs`. This will decrease performance of hashing, encrypting and decrypting.
-
-The hashes provided by memory and stream modes are the same, and they are compatible with one another (only in standalone hashing mode).
+You may even hash multiple files at once, with a command such as `dexios hash test1.enc test2.enc`
 
 ### Performance
 

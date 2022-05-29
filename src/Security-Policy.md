@@ -1,4 +1,4 @@
-### Reporting a Vulnerability
+## Reporting a Vulnerability
 
 Please report any vulnerabilities as a Github issue - we believe all issues should be known, and they are likely to get resolved very quickly this way. Thank you.
 
