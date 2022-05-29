@@ -1,12 +1,14 @@
-## Handling Keys
+## Obtaining the Key
 
-All keys are wrapped in a `Secret<>`, provided by the [secrecy crate](https://docs.rs/secrecy/latest/secrecy/). This ensures that data does not leak, is not copied and is zeroed on drop. It only stays in memory for as long as it needs to.
+All keys are wrapped in a `Secret<>`. This ensures that data does not leak, is not copied and is zeroed on drop. It only stays in memory for as long as it needs to.
 
-Once obtained, passwords are then safely transported to the `argon2id` function. See [Password Hashing](#password-hashing) for more information.
+The key is checked, once, to ensure that it is not empty.
+
+Once the length has been validated, keys are then safely transported to the `argon2id` function. See [Password Hashing](#password-hashing) for more information.
 
 ### Reading from the Terminal
 
-While reading from the terminal, the passwords are stored as `String`s.
+While reading from the terminal, the passwords are stored as `String`s. We use `termion` to handle password entry, this way your input is hidden.
 
 On encryption, where you need to enter the password twice, they are compared. The `String` used for validation is safely zeroed out, and the original is consumed into a `Vec<u8>`.
 

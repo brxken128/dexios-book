@@ -10,15 +10,27 @@ To just erase a file:
 
 `dexios erase test.txt`
 
-To encrypt a file using `AES-256-GCM`:
+To list all possible AEADs:
 
-`dexios -eg test.txt test.enc`
+`dexios list aead`
+
+To pack and encrypt a folder:
+
+`dexios pack encrypt test/ file.encrypted`
+
+To decrypt and unpack a folder:
+
+`dexios pack decrypt file.encrypted test/`
+
+To encrypt a file using `AES-256-GCM` (note: you do not need to specify `-a` when decrypting):
+
+`dexios -ea2 test.txt test.enc`
 
 To encrypt a file, and show the hash of the encrypted (output) file for verification later on:
 
 `dexios -eH test.txt test.enc`
 
-To decrypt a file, and show the hash of the encrypted file beforehand (to compare with the hash generated above):
+To decrypt a file, and show the hash of the encrypted file (to compare with the hash generated above):
 
 `dexios -dH test.enc test.txt`
 
@@ -41,7 +53,3 @@ To encrypt all `.mp4` files in a directory, and remove the original files once e
 To decrypt all `.mp4.enc` files in a directory, and remove the `.enc` suffix:
 
 `find . -type f -iname "*.mp4.enc" -exec sh -c 'dexios -dk keyfile "$0" "${0%.enc}"' {} \;`
-
-Here is a screenshot of Dexios in action! The performance is great, and the checksums match meaning the file is exactly the same as it was before encryption.
-
-![Dexios in action](assets/dexios-in-action.png)
