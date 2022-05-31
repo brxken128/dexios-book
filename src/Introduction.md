@@ -32,6 +32,9 @@ Fedora 36 | Yes |
 Ubuntu 20.04 | Yes |
 FreeBSD 13 | Yes |
 FreeBSD 14 | Yes |
+Windows 11 | Mostly<sup>1</sup> |
+
+<sup>1</sup> The password will not be hidden in the terminal if you enter it manually. Keyfiles and environment variables still work as intended.
 
 ## Donating
 
