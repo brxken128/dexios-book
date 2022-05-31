@@ -2,21 +2,36 @@
 
 To install Dexios, there are two main options.
 
-Firstly, you can install via `cargo` with `cargo install dexios`, or you may download the binary from the release page (make sure you mark it as executable, otherwise it won't run!). 
+Firstly, you can install via `cargo` with `cargo install dexios`, or you may download a binary from the release page (make sure you mark it as executable, otherwise it won't run!).
+
+We offer binaries for both Windows and FreeBSD, but our tests run on Ubuntu so Windows-specific issues may not be picked up. Please [open a Github issue](https://github.com/brxken128/dexios/issues) if you encounter any.
+
+
+### Linux/FreeBSD
 
 To use `cargo` for installing, ensure you have `gcc` installed on your system.
 
 For better performance, you may install via `cargo` with the command `RUSTFLAGS="-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3" cargo install dexios`.
 
+### Windows
+
+Please use Windows Terminal or another Terminal program, as `cmd` does not have support for the command-line icons used by Dexios.
+
+You may also use `cargo` for installing, just run the command:
+
+`setx RUSTFLAGS "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3" && cargo install dexios`
+
 ## Building Notes
 
 As mentioned in the [AES-GCM crate docs](https://docs.rs/aes-gcm/latest/aes_gcm/index.html#performance-notes), please enable certain flags while building. For example:
 
-`RUSTFLAGS="-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3"`
+For Linux/FreeBSD systems, use `RUSTFLAGS="-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3"`
+
+For Windows, use `setx RUSTFLAGS "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3"`
 
 Change native to whichever CPU family/model you are going to be running the code on, if it's going to be ran on a different machine.
 
-`gcc` is required for building.
+`gcc` is required for building on Linux and FreeBSD.
 
 ## Downloading and running a pre-compiled binary
 
