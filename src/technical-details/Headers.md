@@ -4,14 +4,44 @@
 
 The full header is 64 bytes - it contains relevant information about the encrypted data.
 
+V1 Headers (v8.0.0 - v8.2.0):
+
 * The first two bytes of each header *should* contain `0xDE` - this signifies that it is indeed a Dexios file.
 * The next two bytes signify the header version - as of v8.0.0, this is `0x01`
 * The next two bytes contain the encryption algorithm, such as XChaCha20-Poly1305
 * The next two bytes contain the encryption *mode*, which is either stream or memory
 * The next 16 bytes contain the salt used for `argon2id`
 * We then have 16 bytes of empty space, this has the potential to store more information in later versions
-* We then have the `n` byte nonce length - this is determined by the encryption algorithm and encryption mode
+* We then have the `n` byte nonce - this is determined by the encryption algorithm and encryption mode
 * We finally have enough zeroes to reach 64 bytes - this is extra empty space that may be used in later revisions
+
+V2 Headers (v8.3.0):
+
+* The first two bytes of each header *should* contain `0xDE` - this signifies that it is indeed a Dexios file.
+* The next two bytes signify the header version - as of v8.3.0, this is `0x02`
+* The next two bytes contain the encryption algorithm, such as XChaCha20-Poly1305
+* The next two bytes contain the encryption *mode*, which is either stream or memory
+* The next 16 bytes contain the salt used for `argon2id`
+* We then have the `n` byte nonce - this is determined by the encryption algorithm and encryption mode
+* We then pad the headers with zeroes until we reach a total of 48 bytes
+* The last 16 bytes contain a truncated SHA3-512 HMAC signature
+
+
+### Signing (v8.3.0 and above)
+
+Headers are signed using your hashed encryption key.
+
+On encryption, the headers are signed when the ciphers/stream ciphers are initialised, this way we only have to hash your key once. The key is never cloned within memory, and it is zeroed out (using `zeroize` and our [secret wrapper](Secret-Wrapper.md)) once the header has been signed.
+
+The signature is generated from the first 48 bytes of the header - this is where all of the important information is enclosed.
+
+### Verifying (v8.3.0 and above)
+
+On decryption, the headers are verified when the ciphers/stream ciphers are initialised. Once again, the key is zeroed out once the header has been verified.
+
+If a single byte of the header changes, decryption will not continue as the signature will not match. This is to prevent a malicious actor from tampering with the header. 
+
+**If the signature doesn't match, but you're positive your key is correct, it is best to assume the header was tampered with.**
 
 ### Stripping
 
