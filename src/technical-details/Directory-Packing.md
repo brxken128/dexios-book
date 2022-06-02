@@ -1,3 +1,14 @@
+# **This feature has been deprecated since Version 8.4.0**
+
+## Deprecated Notice
+
+We have decided to remove this functionality entirely from Dexios. We did this for a few reasons:
+
+* Pack modes cluttered up the codebase quite heavily
+* Pack modes gave Dexios a larger attack-surface, with vulnerabilities such as [zip slipping](https://snyk.io/research/zip-slip-vulnerability)
+
+It didn't feel right to leave in packing mode, but remove unpacking, so both have been deprecated. As "packing" zipped the files, you may still access your data. Just run `dexios decrypt file.enc file.zip` and open it as you would with any other zip file.
+
 ## Directory "Packing"
 
 After using the pack feature to create an archive, it is just a zip file. You may decrypt this as normal and open it for yourself, if you so wish.

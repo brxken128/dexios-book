@@ -11,7 +11,7 @@ We offer binaries for both Windows and FreeBSD, but our tests run on Ubuntu so W
 
 To use `cargo` for installing, ensure you have `gcc` installed on your system.
 
-For better performance, you may install via `cargo` with the command `RUSTFLAGS="-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3" cargo install dexios`.
+You may install via `cargo` with the command `cargo install dexios`
 
 ### Windows
 
@@ -19,19 +19,13 @@ Please use Windows Terminal or another Terminal program, as `cmd` does not have 
 
 You may also use `cargo` for installing, just run the command:
 
-`setx RUSTFLAGS "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3" && cargo install dexios`
+`cargo install dexios`
 
 ## Building Notes
 
-As mentioned in the [AES-GCM crate docs](https://docs.rs/aes-gcm/latest/aes_gcm/index.html#performance-notes), please enable certain flags while building. For example:
-
-For Linux/FreeBSD systems, use `RUSTFLAGS="-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3"`
-
-For Windows, use `setx RUSTFLAGS "-Ctarget-cpu=native -Ctarget-feature=+aes,+sse2,+sse4.1,+ssse3"`
-
-Change native to whichever CPU family/model you are going to be running the code on, if it's going to be ran on a different machine.
-
 `gcc` is required for building on Linux and FreeBSD.
+
+Manually setting `RUSTFLAGS` is no longer required, as the AEAD crates we use from the [RustCrypto Team](https://github.com/RustCrypto) automatically detect, and take advantage of hardware cryptography primitives.
 
 ## Downloading and running a pre-compiled binary
 
