@@ -14,5 +14,7 @@
   - [Secure Erase](technical-details/Secure-Erase.md)
   - [Secret Wrapper](technical-details/Secret-Wrapper.md)
   - [Directory Packing](technical-details/Directory-Packing.md)
+  - [Auditing](technical-details/Auditing.md)
   - [Performance Notes](technical-details/Performance-Notes.md)
 - [Security Policy](Security-Policy.md)
+- [Supporting Dexios](Supporting-Dexios.md)

@@ -14,7 +14,7 @@ You can use this by running `dexios hash test.enc`. It can also be ran on any fi
 
 You may even hash multiple files at once, with a command such as `dexios hash test1.enc test2.enc`
 
-### Performance
+## Performance
 
 Tests were ran on a system with a Ryzen 7 3700x and 16gb of 3000MHz RAM - running Void Linux. The file used was originally 3.5GiB, and it was stored on a Cruicial MX500 SSD.
 
