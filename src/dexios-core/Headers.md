@@ -67,7 +67,7 @@ Headers are restored by reading the first 64 bytes of the provided input file, a
 
 Headers are signed using your hashed encryption key.
 
-On encryption, the headers are signed when the ciphers/stream ciphers are initialised, this way we only have to hash your key once. The key is never cloned within memory, and it is zeroed out (using `zeroize` and our [secret wrapper](Secret-Wrapper.md)) once the header has been signed.
+On encryption, the headers are signed when the ciphers/stream ciphers are initialised, this way we only have to hash your key once. The key is never cloned within memory, and it is zeroed out (using `zeroize` and our [protected wrapper](Protected-Wrapper.md)) once the header has been signed.
 
 The signature is generated from the first 48 bytes of the header - this is where all of the important information is enclosed.
 

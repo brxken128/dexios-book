@@ -4,7 +4,7 @@ All keys are wrapped in a `Secret<>`. This ensures that data does not leak, is n
 
 The key is checked, once, to ensure that it is not empty.
 
-Once the length has been validated, keys are then safely transported to the `argon2id` function. See [Password Hashing](Password-Hashing.md) for more information.
+Once the length has been validated, keys are then safely transported to the `argon2id` function. See [Password Hashing](../dexios-core/Password-Hashing.md) for more information.
 
 ### Reading from the Terminal
 

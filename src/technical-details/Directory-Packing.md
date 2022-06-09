@@ -27,7 +27,7 @@ The directory structure is recreated within the zip file (if in recursive mode, 
 
 Stream reading is implemented if the file is larger than 1MB - if not then the file is just read into memory.
 
-Once the zip file has been created, it is [encrypted](Encryption.md). If the zip file is larger than 1mb, stream encryption will be used (unless specified manually).
+Once the zip file has been created, it is [encrypted](../dexios-core/Encryption.md). If the zip file is larger than 1mb, stream encryption will be used (unless specified manually).
 
 We then erase the temporary zip file, using 8 passes of the [secure erase](Secure-Erase.md) feature.
 
