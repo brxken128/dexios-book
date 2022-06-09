@@ -17,6 +17,6 @@
   - [Encryption](dexios-core/Encryption.md)
   - [Protected Wrapper](dexios-core/Protected-Wrapper.md)
   - [API Documentation](dexios-core/API.md)
-  - [Auditing](dexios-core//Auditing.md)
+  - [Auditing](dexios-core/Auditing.md)
 - [Security Policy](Security-Policy.md)
 - [Supporting Dexios](Supporting-Dexios.md)
