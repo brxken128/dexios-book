@@ -1,4 +1,4 @@
-## Encryption
+## Encryption - Managed by `dexios-core`
 
 Encryption is done by default with `XChaCha20-Poly1305`, but Dexios also has options for `AES-256-GCM` and `Deoxys-II-256`. Encryption uses the key derived from `argon2id`.
 
@@ -6,7 +6,7 @@ Encryption is done by default with `XChaCha20-Poly1305`, but Dexios also has opt
 
 The XChaCha20-Poly1305 nonce is 20 bytes long, and the AES-256-GCM nonce is 8 bytes long when stored. The stream encryptor dynamically changes the nonce, based on a 31-bit little endian counter and a 1-bit "last block" flag. Those last 32 bits (4 bytes) are appended to the end of the nonce - making the total nonce length 24/12 bytes respectively. This is done by the stream encryptor to ensure that identical data will not be encrypted with the same nonce.
 
-On encryption, the [header](Headers.md) is serialised and written to the start of the file. Then, Dexios reads the source file in 1MB blocks (1048576 bytes), and encrypts them using an LE31 stream encryptor. Each "block" is read, encrypted, written, and then hashed with BLAKE3 (if the option is selected). The salt and the nonce are always the same size, so we can avoid having to serialise/deserialise the data. This had a lot of [performance benefits](https://github.com/brxken128/dexios/wiki/Checksums#performance).
+On encryption, the [header](Headers.md) is serialised and written to the start of the file. Then, Dexios reads the source file in 1MB blocks (1048576 bytes), and encrypts them using an LE31 stream encryptor. Each "block" is read, encrypted, written, and then hashed with BLAKE3 (if the option is selected). The salt and the nonce are always the same size, so we can avoid having to serialise/deserialise the data. This had a lot of [performance benefits](../Checksums.md#performance).
 
 For decryption, the [header](Headers.md) is is read and deserialised. Next, Dexios reads the remaining part of the encrypted file in 1MB blocks + 16 bytes, to account for the AEAD tag. Each "block" is read, decrypted, written, and then hashed with BLAKE3 (if the option is selected).
 

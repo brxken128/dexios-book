@@ -1,4 +1,4 @@
-## Headers
+## Headers - Managed by `dexios-core`
 
 ### Structure
 
