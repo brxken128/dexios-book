@@ -2,9 +2,11 @@
 
 Hashing mode uses `BLAKE3` for verification, due to it's speed, security and regular updates. (very ideal for this use case).
 
-Checksums are not used by Dexios for anything security related, they are for your peace of mind.
+Checksums are not used by Dexios for anything security related - they are for your peace of mind.
 
 We hash the **encrypted** file (after encryption and before/during decryption). This is to ensure that your file wasn't tampered with between encrypting it and decrypting it. If the hash isn't the same then something *very* bad has happened.
+
+Since v8.5.0, checksums are calculated *after* the main process has been executed. This allows for us to keep our encryption/decryption functions cleaner, and less cluttered, which can help us maintain the core functionality. It would be hard to keep on-top of these critical functions otherwise.
 
 This was originally `sha3-512` in versions 3.x.x and below, and was `KangarooTwelve` in 4.x.x (via the `tiny_keccak` crate) but since v5 it has been changed to `BLAKE3` for a number of reasons. We have no plans to change `BLAKE3` at this moment in time - it's fast, secure, and does the job very well.
 
