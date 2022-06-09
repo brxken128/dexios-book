@@ -55,6 +55,8 @@ Everything is done locally on your hardware and your machine.
 
 I encourage all able users to take a peek at [the source code](https://github.com/brxken128/dexios) and see for themselves.
 
+You may find the cryptographic functions in [dexios-core](https://github.com/brxken128/dexios-core)
+
 ## Thank you!
 
 I'd like to give a huge "thank you" to the entire [RustCrypto Team](https://github.com/RustCrypto) for their hard work within the Rust cryptography community. This program would not be possible without their countless hours of work and dedication.
