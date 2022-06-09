@@ -25,6 +25,8 @@ You may also use `cargo` for installing, just run the command:
 
 Dexios can be installed on Android devices, via [Termux](https://termux.com/). All features have been confirmed to work, but if you find any, please [open a Github issue](https://github.com/brxken128/dexios/issues).
 
+Dexios was tested on Android 12, with Termux v0.118.0, but it should work on a wide range of devices.
+
 To install, ensure you have `cargo` installed. You may install Dexios with the command:
 
 `AR=llvm-ar cargo install dexios`
