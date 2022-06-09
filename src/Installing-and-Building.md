@@ -21,6 +21,14 @@ You may also use `cargo` for installing, just run the command:
 
 `cargo install dexios`
 
+### Android
+
+Dexios can be installed on Android devices, via [Termux](https://termux.com/). All features have been confirmed to work, but if you find any, please [open a Github issue](https://github.com/brxken128/dexios/issues).
+
+To install, ensure you have `cargo` installed. You may install Dexios with the command:
+
+`AR=llvm-ar cargo install dexios`
+
 ## Building Notes
 
 `gcc` is required for building on Linux and FreeBSD.
