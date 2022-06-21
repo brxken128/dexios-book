@@ -18,9 +18,21 @@ The [ChaCha20-Poly1305 crate](https://github.com/RustCrypto/AEADs/tree/master/ch
 
 The `deoxys` crate does not have a formal audit, and it is still rather experimental. Due to how new Deoxys is, relatively speaking, it's extremely hard to find a good implementation. We opted to use one created by the same [RustCrypto Team](https://github.com/RustCrypto) that almost all of our other cryptographic dependencies rely on. You **will** experience decreased encryption and decryption performance while using Deoxys.
 
-`argon2` is regarded as the most secure password hashing algorithm at the time being, due to how resistant it is to cracking - that's why we use it! It's especially ideal while dealing with low-entropy inputs, such as passwords.
+We use `BLAKE3-Balloon` hashing for passwords (as of v8.7.0), and older versions used `argon2id` with good, hard parameters. Both hashing algorithms are regarded as secure, and both APIs are provided by the RustCrypto Team.
 
 All other cryptographic functions are deemed secure - but they don't protect your data, so any vulnerabilities in them would not have a detrimental effect on the security and integrity of said data.
+
+## The Defaults
+
+The defaults used in Dexios are more than adequate for even the most paranoid of users.
+
+By running the simple command `dexios -e input.txt output.enc`, you are using the following:
+
+* `XChaCha20-Poly1305`
+* `BLAKE3-Balloon` hashing
+* Sensitive data being completely erased from memory
+* A tamper-resistant header that is authenticated along with every block of encrypted data
+* LE31 STREAM encryption
 
 ## Tested Operating Systems
 
@@ -34,6 +46,7 @@ FreeBSD 13 | Yes |
 FreeBSD 14 | Yes |
 Windows 11 | Mostly<sup>1</sup> |
 Android 12 | Yes |
+MacOS | Yes |
 
 <sup>1</sup> The password will not be hidden in the terminal if you enter it manually. Keyfiles and environment variables still work as intended.
 

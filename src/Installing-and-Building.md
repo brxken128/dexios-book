@@ -6,7 +6,6 @@ Firstly, you can install via `cargo` with `cargo install dexios`, or you may dow
 
 We offer binaries for both Windows and FreeBSD, but our tests run on Ubuntu so Windows-specific issues may not be picked up. Please [open a Github issue](https://github.com/brxken128/dexios/issues) if you encounter any.
 
-
 ### Linux/FreeBSD
 
 To use `cargo` for installing, ensure you have `gcc` installed on your system.

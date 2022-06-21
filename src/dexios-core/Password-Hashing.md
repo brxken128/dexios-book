@@ -1,6 +1,6 @@
-## Password Hashing - Managed by `dexios-core`
+## Password Hashing
 
-Password hashing is done with `argon2id`. It uses a 16-byte salt to derive the encryption key. Once a key has been hashed, it is dropped and zeroed out via the `zeroize` crate to ensure it stays in memory no longer than required.
+Password hashing was done with `argon2id` in all versions prior to v8.7.0. In versions v8.7.0 and above, BLAKE3-Balloon hashing is used. Both modes use a 16-byte salt to derive the encryption key. Once a key has been hashed, it is dropped and zeroed out via the `zeroize` crate to ensure it stays in memory no longer than required.
 
 ### Handling the Hash
 

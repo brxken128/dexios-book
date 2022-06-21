@@ -6,6 +6,10 @@ The key is checked, once, to ensure that it is not empty.
 
 Once the length has been validated, keys are then safely transported to the `argon2id` function. See [Password Hashing](../dexios-core/Password-Hashing.md) for more information.
 
+## Autogenerating a Key (v8.7.0+)
+
+The option to autogenerate passphrases has been added. It uses the [EFF Large Wordlist](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt) to generate 3 completely random words, and then 6 digits for the end. The words are all capitalised, and are separated with `-`. This should provide more than enough protection, due to the absurd amount of possible combinations there are.
+
 ### Reading from the Terminal
 
 While reading from the terminal, the passwords are stored as `String`s. We use `termion` to handle password entry, this way your input is hidden.
