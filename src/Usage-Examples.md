@@ -17,15 +17,9 @@
 </details>
 <br>
 <details>
-<summary>To list all possible AEADs</summary>
+<summary>To encrypt a file using <code>AES-256-GCM</code> (note: you do not need to specify <code>--aes</code> when decrypting)</summary>
 <br>
-<code>dexios list aead</code>
-</details>
-<br>
-<details>
-<summary>To encrypt a file using <code>AES-256-GCM</code> (note: you do not need to specify <code>-a</code> when decrypting)</summary>
-<br>
-<code>dexios -ea2 test.txt test.enc</code>
+<code>dexios -e --aes test.txt test.enc</code>
 </details>
 <br>
 <details>

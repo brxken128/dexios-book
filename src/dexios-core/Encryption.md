@@ -1,8 +1,6 @@
 ## Encryption
 
-Encryption is done by default with [`XChaCha20-Poly1305`](https://tools.ietf.org/html/rfc8439), but Dexios also has options for [`AES-256-GCM`](https://en.wikipedia.org/wiki/AES-GCM-SIV) and [`Deoxys-II-256`](https://sites.google.com/view/deoxyscipher). Encryption uses the key derived from `argon2id`/`balloon` hashing.
-
-Stream mode should be the default - it works on all files, even those less than the 1MiB `BLOCK_SIZE`.
+Encryption is done by default with [`XChaCha20-Poly1305`](https://tools.ietf.org/html/rfc8439), but Dexios also has options for [`AES-256-GCM`](https://en.wikipedia.org/wiki/AES-GCM-SIV) and [`Deoxys-II-256`](https://sites.google.com/view/deoxyscipher). Encryption uses a cryptographically-secure randomly generated 32-byte value. This is then encrypted using the key you provided (once it has been hashed). Once the master key is encrypted, it is stored within the header. You may read more about this [below](#stream-mode).
 
 ### Stream Mode
 
@@ -10,7 +8,7 @@ The XChaCha20-Poly1305 nonce is 20 bytes long, and the AES-256-GCM nonce is 8 by
 
 On encryption (as of v8.7.0), a completely random 32-byte "master key" is generated. The user's key is then used to encrypt the master key, and that is included within the header (along with the random nonce). This was implemented as it will allow us to add features such as changing a key, or allowing multiple keys to decrypt the same file.
 
-On encryption, the [header](Headers.md) is serialised and written to the start of the file. Then, Dexios reads the source file in 1MiB blocks (1048576 bytes), and encrypts them using an LE31 stream encryptor. Each "block" is read, encrypted, written. The salt and the nonce are always the same size, so we can avoid having to serialise/deserialise the data. This had a lot of [performance benefits](../Checksums.md#performance).
+On encryption, the [header](Headers.md) is serialised and written to the start of the file. Then, Dexios reads the source file in 1MiB blocks (1048576 bytes), and encrypts them using an LE31 stream encryptor. Each "block" is read, encrypted, written. The header is always the same size, so we can avoid having to serialise/deserialise the data with something such as JSON. This had a lot of [performance benefits](../Checksums.md#performance).
 
 For decryption, the [header](Headers.md) is is read and deserialised. Next, Dexios reads the remaining part of the encrypted file in 1MiB blocks + 16 bytes, to account for the AEAD tag. Each "block" is read, decrypted, and then written.
 

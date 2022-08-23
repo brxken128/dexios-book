@@ -6,9 +6,10 @@ Welcome to the Dexios Book! Here you will find a lot of information about the pr
 
 Dexios is a command-line file encryption utility, suitable for encrypting files before uploading them to a cloud service. It is written entirely in rust and contains no unsafe code (some dependencies may contain unsafe code, but they have received the correct audits and are deemed secure).
 
-It uses `XChaCha20-Poly1305` encryption by default, or `AES-256-GCM` if you specify `--aead 2`. Deoxys encryption can be enabled with `--aead 3`, but I urge you to read the [Security Notices](#security-notices) beforehand.
+It uses `XChaCha20-Poly1305` encryption by default, or `AES-256-GCM` if you specify `--aes`.
 
- `argon2id` is used to generate the encryption key.
+
+By default, `BLAKE3-Balloon` is used for hashing your password. Alternatively, `argon2id` can be used to hash your key, by specifying `--argon` during encryption.
 
 ## Security Notices
 
@@ -16,7 +17,7 @@ The [AES-GCM crate](https://github.com/RustCrypto/AEADs/tree/master/aes-gcm) has
 
 The [ChaCha20-Poly1305 crate](https://github.com/RustCrypto/AEADs/tree/master/chacha20poly1305) has received a security audit by NCC group, with no significant findings. You can view the audit [here](https://research.nccgroup.com/2020/02/26/public-report-rustcrypto-aes-gcm-and-chacha20poly1305-implementation-review/)
 
-The `deoxys` crate does not have a formal audit, and it is still rather experimental. Due to how new Deoxys is, relatively speaking, it's extremely hard to find a good implementation. We opted to use one created by the same [RustCrypto Team](https://github.com/RustCrypto) that almost all of our other cryptographic dependencies rely on. You **will** experience decreased encryption and decryption performance while using Deoxys.
+The `deoxys` crate does not have a formal audit, and it is still rather experimental. Due to how new Deoxys is, relatively speaking, it's extremely hard to find a good implementation. We opted to use one created by the same [RustCrypto Team](https://github.com/RustCrypto) that almost all of our other cryptographic dependencies rely on. You **will** experience decreased encryption and decryption performance while using Deoxys. **NOTE: As of v8.8.0, encryption using `Deoxys` has been temporarily disabled. We weren't happy with the performance and agreed it would be best to remove this functionality until it improves. You may still decrypt any files that were encrypted with `Deoxys`.**
 
 We use `BLAKE3-Balloon` hashing for passwords (as of v8.7.0), and older versions used `argon2id` with good, hard parameters. Both hashing algorithms are regarded as secure, and both APIs are provided by the RustCrypto Team.
 
@@ -44,11 +45,10 @@ Fedora 36 | Yes |
 Ubuntu 20.04 | Yes |
 FreeBSD 13 | Yes |
 FreeBSD 14 | Yes |
-Windows 11 | Mostly<sup>1</sup> |
+Windows 10 | Yes |
+Windows 11 | Yes |
 Android 12 | Yes |
 MacOS | Yes |
-
-<sup>1</sup> The password will not be hidden in the terminal if you enter it manually. Keyfiles and environment variables still work as intended.
 
 ## Donating
 

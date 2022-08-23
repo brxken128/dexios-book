@@ -4,7 +4,7 @@ All keys are wrapped in `Protected<>`. This ensures that data does not leak, is 
 
 The key is checked, once, to ensure that it is not empty.
 
-Once the length has been validated, keys are then safely transported to the `argon2id` function. See [Password Hashing](../dexios-core/Password-Hashing.md) for more information.
+Once the length has been validated, keys are then safely transported to the appropriate hashing function. See [Password Hashing](../dexios-core/Password-Hashing.md) for more information.
 
 ## Autogenerating a Key (v8.7.0+)
 
@@ -12,7 +12,7 @@ The option to autogenerate passphrases has been added. It uses the [EFF Large Wo
 
 ### Reading from the Terminal
 
-While reading from the terminal, the passwords are stored as `String`s. We use `termion` to handle password entry, this way your input is hidden.
+While reading from the terminal, the passwords are stored as `String`s. We use `rpassword` to handle password entry, this way your input is hidden across multiple platforms.
 
 On encryption, where you need to enter the password twice, they are compared. The `String` used for validation is safely zeroed out, and the original is consumed into a `Vec<u8>`.
 

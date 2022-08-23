@@ -8,9 +8,9 @@ This mode does not preserve metadata, file attributes or permissions. It also do
 
 ### Usage Examples
 
-To pack an entire directory (recursively, including hidden files):
+To pack an entire directory (recursively):
 
-`dexios pack -r --hidden dir/ dir.enc`
+`dexios pack -r dir/ dir.enc`
 
 To unpack the directory (and output it to your current path):
 
@@ -28,7 +28,7 @@ Stream reading is implemented if the file is larger than 1MB - if not then the f
 
 Once the zip file has been created, it is [encrypted](../dexios-core/Encryption.md). If the zip file is larger than 1mb, stream encryption will be used (unless specified manually).
 
-We then erase the temporary zip file, using 2 passes of the [secure erase](Secure-Erase.md) feature.
+We then erase the temporary zip file, using 1 pass of the [secure erase](Secure-Erase.md) feature.
 
 ### Unpacking an Archive
 
@@ -36,6 +36,6 @@ First, the zip file is decrypted as a temporary file with a random 8 character a
 
 We then open the temporary zip file for reading, recreate the directory structure within the output directory, and extract each file to the correct path within the output directory.
 
-Once all of the files have been successfully extracted, we securely erase the temporary zip file. This again uses 2 passes of the [secure erase](Secure-Erase.md) feature.
+Once all of the files have been successfully extracted, we securely erase the temporary zip file. This again uses 1 pass of the [secure erase](Secure-Erase.md) feature.
 
 Zip-slip prevention measures have been taken, although it is hard to cover them all. Ensure you only unpack files from trusted sources.

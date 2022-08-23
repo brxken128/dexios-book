@@ -1,5 +1,7 @@
 # Dexios-Domain
 
+You may find rather high-level and basic documentation on [docs.rs](https://docs.rs/dexios-domain/latest/dexios_domain/).
+
 Dexios-Domain doesn't need much of an introduction, as it's usage is rather self explanatory. It is a layer between Dexios front-ends, and the core library.
 
 It does offer some functionality of it's own - namely the key manipulation functions and the erase directory logic.
