@@ -50,6 +50,24 @@ V4 Headers (v8.7.0+):
 * We then have the `n` byte nonce used for encrypting the master key - this is determined by the encryption algorithm (in standard cipher/memory mode)
 * We finally have enough padding to reach a total of 128 bytes in length
 
+V5 Headers (v8.8.0+):
+
+* The first two bytes of each header *should* contain `0xDE` - this signifies that it is indeed a Dexios file.
+* The next two bytes signify the header version - as of v8.8.0, this is `0x05`
+* The next two bytes contain the encryption algorithm, such as XChaCha20-Poly1305
+* The next two bytes contain the encryption *mode*, which is either stream or memory
+* We then have the `n` byte nonce used for encrypting the data - this is determined by the encryption algorithm (in LE31 STREAM mode)
+* We then have enough padding to reach 32 bytes. **This padding, and the above, is used to form the AAD**
+* Next is the potential for 4 keyslots, at 96 bytes each
+* A keyslot contains:
+    * A 2-byte identifier (`0xDF`)
+    * The encrypted master key (48 bytes in length)
+    * The nonce used for encrypting the master key (`n` bytes)
+    * Padding until we reach 74 bytes total for the keyslot
+    * The 16-byte salt
+    * Padding until we reach 96 bytes in total
+* We finally have enough padding to reach a total of 416 bytes in length
+
 ### Authenticating the Header with AAD (v8.4.0+)
 
 Headers are calculated as a byte array (including the padding), and provided as AAD (additional authenticated data) to **every block** in stream mode, and the whole block in memory mode.
@@ -66,16 +84,39 @@ On the other hand, AAD requires hardly any further computational power, or clutt
 
 For V4 Headers, the AAD is generated based on the first 48 bytes (for salt, nonce, version, algorithm, mode information, padding) and then the padding from the end. Authenticating the padding isn't necessary, but it could help prevent some forms of tampering.
 
+For V5 headers, the AAD is generated based on the first 32 bytes of the header. This includes the header version, encryption algorithm, encryption mode, and the nonce for the data. The keyslots may change, so they can't be included with the AAD.
 
-### Changing a Key (v8.7.0+)
+### Adding a Key (v8.8.0+, V5 Headers+)
 
 You can provide keyfiles with the `-k` and `-n` switches (for old and new keyfiles respectively). You may provide just an old keyfile, and `--auto` for autogenerating a new passphrase. The combinations are there to allow for you to easily change any key.
 
 The file is first opened, and the header is deserialized. Both keys are then obtained, and are subsequently [hashed](Password-Hashing.md).
 
-Once both keys have been hashed successfully, the master key stored within the header is decrypted (with the nonce provided in the header), using the old key. It is then re-encrypted with your new key, and a new nonce, before being written back to the file.
+Once both keys have been hashed successfully, the master key stored within the header is decrypted, using the old key. The master key is then encrypted with your new key, before being written back to the file.
 
-Currently, only one keyslot is supported per file, but there are plans to add more in the future. This means you could decrypt easily using a keyfile, and have a backup password/another keyfile in case your primary one is lost.
+Please view the [notes about key manipulation](#notes-about-header-key-manipulation).
+
+### Changing a Key (v8.8.0+, V5 Headers+)
+
+You can provide keyfiles with the `-k` and `-n` switches (for old and new keyfiles respectively). You may provide just an old keyfile, and `--auto` for autogenerating a new passphrase. The combinations are there to allow for you to easily change any key.
+
+The file is first opened, and the header is deserialized. Both keys are then obtained, and are subsequently [hashed](Password-Hashing.md).
+
+Once both keys have been hashed successfully, the master key stored within the header is decrypted, using the old key. It is then re-encrypted with your new key, and a new nonce, before being written back to the file.
+
+Please view the [notes about key manipulation](#notes-about-header-key-manipulation).
+
+### Deleting a Key (v8.8.0+, V5 Headers+)
+
+You can provide a keyfile with the `-k` switch, if required.
+
+Your key is needed in order to identify which key you'd like to remove from the header. If this is not the functionality you're after, you may be interested in [stripping the header](#stripping).
+
+### Notes about Header-Key manipulation
+
+With V5 headers, we now have the option to change/delete a key. It's extremely important to note that `key change` and `key del` will only act upon the first match that they find - not all matches.
+
+If you have multiple keyslots with the password `password`, and you go to delete that key, you will need to run the action multiple times in order to remove them all. This is a design decision in order to make these key manipulation functions less-time consuming when multiple keyslots are present (it requires hashing the provided key up to 4 times with different salts). You may open an issue on Github if you oppose this choice.
 
 ### Stripping
 
