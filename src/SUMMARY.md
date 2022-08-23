@@ -18,5 +18,6 @@
   - [Protected Wrapper](dexios-core/Protected-Wrapper.md)
   - [API Documentation](dexios-core/API.md)
   - [Auditing](dexios-core/Auditing.md)
+- [Dexios-Domain](dexios-domain/README.md)
 - [Security Policy](Security-Policy.md)
 - [Supporting Dexios](Supporting-Dexios.md)
